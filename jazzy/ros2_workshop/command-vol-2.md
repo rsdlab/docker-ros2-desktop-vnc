@@ -15,28 +15,23 @@
 ```bash
 mkdir -p ~/seed_ws/src
 cd ~/seed_ws/src
-git clone --recurse-submodules https://github.com/rsdlab/seed_robot_ros2_pkg.git
+git clone -b ros2-jazzy https://github.com/rsdlab/seed_robot_ros2_pkg.git
+```
+
+## サブモジュールアップデート
+```bash
+cd seed_robot_ros2_pkg/
+git submodule update --init --recursive
 ```
 ## パッチ適用
 ```bash
-cd ~/seed_ws/src/seed_robot_ros2_pkg
 patch -p0 < patch/urg_node2.patch
 ```
 
 ## ロボットプロジェクトのクローン
 ```bash
 cd ~/seed_ws/src/seed_robot_ros2_pkg/robots
-git clone –b ros2-jazzy https://github.com/rsdlab/noid_lifter_mover.git
-```
-
-`クローンしたいロボット名を入力してください:`とメッセージが表示されるので`noid_lifter_mover`を入力してください
-
-## ビルド
-```bash
-cd ~/seed_ws
-colcon build --symlink-install
-(ビルド完了後実行)
-source install/setup.bash
+git clone -b ros2-jazzy https://github.com/rsdlab/noid_lifter_mover.git
 ```
 
 ### Udev設定(実機を動かす場合)
@@ -53,22 +48,29 @@ udevファイルをコピーします
 ## Gazebo用パッケージをクローン
 ```bash
 cd ~/seed_ws/src
-git clone https://github.com/ros-controls/gz_ros2_control.git
+git clone -b jazzy https://github.com/ros-controls/gz_ros2_control.git
 touch gz_ros2_control/gz_ros2_control_demos/COLCON_IGNORE
 ```
 
 ## 移動機能パッケージをクローン
 ```bash
 cd ~/seed_ws/src
-git clone –b ros2_jazzy https://github.com/rsdlab/movement_function.git
+git clone -b ros2-jazzy https://github.com/rsdlab/movement_function.git
 ```
 
 ## 人協働マニピュレーションパッケージをクローン
 ```bash
 cd ~/
-git clone –b ros2-jazzy https://github.com/rsdlab/Human_Collaboraiton_System.git
-cd Human_Collaboration_System/
-cp Seed-noid/* ~/seed_ws/src
+git clone -b ros2-jazzy https://github.com/rsdlab/Human_Collaboraiton_System.git
+cd Human_Collaboraiton_System/
+cp -r Seed-noid/* ~/seed_ws/src
+```
+
+## ビルド
+```bash
+cd ~/seed_ws
+colcon build --symlink-install
+source install/setup.bash
 ```
 
 ## シミュレーション(Gazebo)
@@ -82,7 +84,7 @@ ros2 run place_position_detection_subsystem PlacePositionDetectionNode
 ros2 run collaboration_manipulation_module CollaborationManipulationModule --ros-args -p use_sim_time:=true
 ros2 run mobile_robot_navigation_module mobile_robot_navigation_node --ros-args -p use_sim_time:=true
 ros2 run external_app pose_hint_client
-ros2 run management_system ManagementSystemNode
+ros2 run management_system ManagementSystemNode --ros-args -p use_sim_time:=true
 ```
 
 ## 実機

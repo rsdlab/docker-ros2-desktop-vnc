@@ -12,6 +12,17 @@
 | ROS2 | Jazzy Jalisco LTS |
 
 ---
+### Docker環境構築
+```bash
+git clone –b ros2-jazzy https://github.com/rsdlab/docker-ros2-desktop-vnc.git
+cd docker-ros2-desktop-vnc/jazzy
+docker build -t tiryoh/ros2-desktop-vnc:jazzy .
+
+docker run -p 6080:80 --shm-size=512m tiryoh/ros2-desktop-vnc:jazzy
+```
+
+`http://127.0.0.1:6080/`にアクセス
+
 ### 動作確認
 (ターミナル①)
 ```shell
@@ -22,6 +33,24 @@ ros2 run demo_nodes_cpp listener
 ros2 run demo_nodes_cpp talker
 ```
 
+### サンプルコードビルド
+```bash
+mkdir –p ~/colcon_ws/src
+cd ~/colcon_ws/src
+git clone https://github.com/ros2/examples.git -b jazzy
+cd ~/ros2_ws
+colcon build
+source install/setup.bash
+```
+実行
+(ターミナル①)
+```bash 
+ros2 run examples_rclcpp_minimal_subscriber subscriber_lambda
+```
+(ターミナル②)
+```bash
+ros2 run examples_rclcpp_minimal_publisher publisher_lambda
+```
 ---
 
 # ROS2通信実装
@@ -74,6 +103,8 @@ $ ros2 run ros2_topic_sample talker
 [INFO] [1781489276.757378403] [minimal_publisher]: 配信: "こんにちは、ROS2! カウント: 5"
 ```
 
+---
+
 ## Service通信実装
 ### ビルド
 ```shell
@@ -101,6 +132,8 @@ ros2 run ros2_service_sample service_client
 [INFO] [1781490817.123502492] [minimal_client]: Clientノードを起動しました
 [INFO] [1781490817.125051364] [minimal_client]: 結果受信: 3 + 5 = 8
 ```
+
+---
 
 ## Action通信実装
 ### ビルド
