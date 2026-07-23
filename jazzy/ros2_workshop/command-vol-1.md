@@ -14,7 +14,7 @@
 ---
 ### Docker環境構築
 ```bash
-git clone –b ros2-jazzy https://github.com/rsdlab/docker-ros2-desktop-vnc.git
+git clone -b ros2-jazzy https://github.com/rsdlab/docker-ros2-desktop-vnc.git
 cd docker-ros2-desktop-vnc/jazzy
 docker build -t tiryoh/ros2-desktop-vnc:jazzy .
 
@@ -35,7 +35,7 @@ ros2 run demo_nodes_cpp talker
 
 ### サンプルコードビルド
 ```bash
-mkdir –p ~/colcon_ws/src
+mkdir -p ~/colcon_ws/src
 cd ~/colcon_ws/src
 git clone https://github.com/ros2/examples.git -b jazzy
 cd ~/ros2_ws
