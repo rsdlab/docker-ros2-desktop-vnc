@@ -54,9 +54,9 @@ if [ -e /tmp/.X11-unix/X1 ]; then
 fi
 
 if [ $(uname -m) = "aarch64" ]; then
-    LD_PRELOAD=/lib/aarch64-linux-gnu/libgcc_s.so.1 vncserver :1 -fg -geometry 1920x1080 -depth 24
+    LD_PRELOAD=/lib/aarch64-linux-gnu/libgcc_s.so.1 vncserver :1 -fg -geometry 1920x1080 -depth 24 -localhost no
 else
-    vncserver :1 -fg -geometry 1920x1080 -depth 24
+    vncserver :1 -fg -geometry 1920x1080 -depth 24 -localhost no
 fi
 EOF
 

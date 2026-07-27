@@ -23,6 +23,12 @@ docker run -p 6080:80 --shm-size=512m tiryoh/ros2-desktop-vnc:jazzy
 
 `http://127.0.0.1:6080/`にアクセス
 
+#### noVNCが起動しない
+```bash
+docker build -t tiryoh/ros2-desktop-vnc:jazzy .
+docker run -p 6080:80 -p 5901:5901 --shm-size=512m tiryoh/ros2-desktop-vnc:jazzy
+```
+
 ### 動作確認
 (ターミナル①)
 ```shell
